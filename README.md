@@ -11,7 +11,7 @@
   }
 }]
 ```
-ってJSONを読み込んで、5秒に当たる部分の`Movements`に`CameraEffect`を追加(変更)するツールです。
+ってJSONを読み込んだ場合、5秒に当たる部分の`Movements`に`CameraEffect`を追加(変更)します。
 
 # インストール方法
 1. [Releases](https://github.com/rynan4818/MovementScriptChange/releases)から`MovementScriptChange.zip`をダウンロードして、適当なフォルダを作成して解凍します。
