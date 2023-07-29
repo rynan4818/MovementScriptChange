@@ -4,10 +4,12 @@
 
 # インストール方法
 1. [Releases](https://github.com/rynan4818/MovementScriptChange/releases)から`MovementScriptChange.zip`をダウンロードして、適当なフォルダを作成して解凍します。
-2. `movement_script_change.exe`を実行すると上の画像のツールが立ち上がります。
-3. `Movement Script`には[CameraPlus](https://github.com/Snow1226/CameraPlus)の[MovementScript](https://github.com/Snow1226/CameraPlus/wiki/MovementScript)のJSONファイルを選択します。
-4. `Change Script`には、下記のJSONファイルを作ります。
-5. `Change!`を押すと変換後の保存JSONファイル画面が表示されるので、指定して保存します。
+
+# 使い方
+1. `movement_script_change.exe`を実行すると上の画像のツールが立ち上がります。
+2. `Movement Script`には[CameraPlus](https://github.com/Snow1226/CameraPlus)の[MovementScript](https://github.com/Snow1226/CameraPlus/wiki/MovementScript)のJSONファイルを選択します。
+3. `Change Script`には、下記を参考にしてJSONファイルを作ります。
+4. `Change!`を押すと変換後の保存JSONファイル画面が表示されるので、指定して保存します。
 
 ```json
 [
