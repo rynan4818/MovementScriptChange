@@ -1,13 +1,15 @@
 # MovementScriptChange
 
-�����ChangeScript JSON�t�@�C�������܂��B
+![image](https://github.com/rynan4818/MovementScriptChange/assets/14249877/ef7ea5f3-dbaf-455f-b538-e8124152ed31)
+
+こんなChangeScript JSONファイルを作ります。
 
 ```json
 [
   {
-    "time": 5,       //���Ԃ�5�b�ɊY������Movement��ύX
-    "json": {        //�ύX�E�ǉ�������e
-      "StartPos": {  //�ύX����ꍇ�́A���g(StartPos�Ȃ�x,y,z,FOV)�͑S�ċL�ڂ��Ă��������Bx�����L�ڂ���Ƒ���y,z,FOV�͍폜����܂�
+    "time": 5,       //時間が5秒に該当するMovementを変更
+    "json": {        //変更・追加する内容
+      "StartPos": {  //変更する場合は、中身(StartPosならx,y,z,FOV)は全て記載してください。xだけ記載すると他のy,z,FOVは削除されます
           "x": 10,
           "y": 1.75,
           "z": -2,
@@ -16,7 +18,7 @@
     }
   },
   {
-    "time": "10.5,20.9",  //���Ԃ�,�ŕ����L�ډ\�ł�
+    "time": "10.5,20.9",  //時間は,で複数記載可能です
     "json": {
       "StartPos": {
           "x": 20,
@@ -27,7 +29,7 @@
     }
   },
   {
-    "time": "30.5-40.8",  //���Ԃ�-�Ŕ͈͂��ĉ\�ł��B���̏ꍇ�� 30.5�b�`40.8�b�͈̔͂�S���ύX
+    "time": "30.5-40.8",  //時間は-で範囲して可能です。左の場合は 30.5秒～40.8秒の範囲を全部変更
     "json": {
       "StartPos": {
           "x": 30,
@@ -38,7 +40,7 @@
     }
   },
   {
-    "time": "50.5-60.8,70.5-80.8",  //,��-��g�ݍ��킹�\�ł�
+    "time": "50.5-60.8,70.5-80.8",  //,と-を組み合わせ可能です
     "json": {
       "StartPos": {
           "x": 40,
@@ -49,7 +51,7 @@
     }
   },
   {
-    "time": 35,  //ChangeScript�͏ォ�珇�Ԃɏ��������邽�߁A���30.5-40.8�b�ŕύX�������e�ɑ΂��āA35�b�������̓��e�ɍX�ɏ㏑�����܂�
+    "time": 35,  //ChangeScriptは上から順番に処理をするため、上の30.5-40.8秒で変更した内容に対して、35秒だけこの内容に更に上書きします
     "json": {
       "StartPos": {
           "x": 50,
@@ -124,64 +126,64 @@
 ```
 
 
-# ���C�Z���X�ƒ��쌠�ɂ���
+# ライセンスと著作権について
 
-MovementScriptChange �̓v���O�����{�̂Ɗe�탉�C�u��������\������Ă��܂��B
+MovementScriptChange はプログラム本体と各種ライブラリから構成されています。
 
-MovementScriptChange �̃\�[�X�R�[�h�y�ъe��h�L�������g�ɂ��Ă̒��쌠�͍�҂ł��郊���i��(Twitter [@rynan4818](https://twitter.com/rynan4818))���L���܂��B
-���C�Z���X�� MIT ���C�Z���X��K�p���܂��B
+MovementScriptChange のソースコード及び各種ドキュメントについての著作権は作者であるリュナン(Twitter [@rynan4818](https://twitter.com/rynan4818))が有します。
+ライセンスは MIT ライセンスを適用します。
 
-����ȊO�� movement_script_change.exe �ɓ���Ă���ruby�X�N���v�g��o�C�i�����C�u�����́A���ꂼ��̍�҂ɒ��쌠������܂��B�z�z���C�Z���X�́A���ꂼ��قȂ邽�ߏڍׂ͉��L�̓��茳���m�F���ĉ������B
+それ以外の movement_script_change.exe に内包しているrubyスクリプトやバイナリライブラリは、それぞれの作者に著作権があります。配布ライセンスは、それぞれ異なるため詳細は下記の入手元を確認して下さい。
 
-# �J�����A�e�탉�C�u���������
+# 開発環境、各種ライブラリ入手先
 
-�e�c�[���̓����A�J���ҁE����ҁi�h�̗��j�A���C�Z���X�͈ȉ��̒ʂ�ł��B
+各ツールの入手先、開発者・製作者（敬称略）、ライセンスは以下の通りです。
 
-movement_script_change.exe �ɓ���Ă����̓I�ȃ��C�u�����t�@�C���̏ڍׂ� [Exerb���V�s�t�@�C��](source/core_cui.exy) ���Q�Ƃ��ĉ������B
+movement_script_change.exe に内包している具体的なライブラリファイルの詳細は [Exerbレシピファイル](source/core_cui.exy) を参照して下さい。
 
-## Ruby�{�̓����
+## Ruby本体入手先
 - ActiveScriptRuby(1.8.7-p330)
 - https://www.artonx.org/data/asr/
-- �����:arton
-- ���C�Z���X�FRuby Licence
+- 製作者:arton
+- ライセンス：Ruby Licence
 
-## GUI�t�H�[���r���_�[�����
+## GUIフォームビルダー入手先
 - FormDesigner for Project VisualuRuby Ver 060501
 - https://ja.osdn.net/projects/fdvr/
-- Subversion ���|�W�g�� r71(r65�ȍ~)��/formdesigner/trunk ���g�p
-- �J����:�ጩ��
-- ���C�Z���X�FRuby Licence
+- Subversion リポジトリ r71(r65以降)の/formdesigner/trunk を使用
+- 開発者:雪見酒
+- ライセンス：Ruby Licence
 
-## �g�p�g�����C�u�����A�\�[�X�R�[�h
+## 使用拡張ライブラリ、ソースコード
 
-### Ruby�{�� 1.8.7-p330              #�J����ActiveScriptRuby(1.8.7-p330)���g�p
+### Ruby本体 1.8.7-p330              #開発はActiveScriptRuby(1.8.7-p330)を使用
 - https://www.ruby-lang.org/ja/
-- �J����:�܂��Ƃ䂫�Ђ�
-- ���C�Z���X�FRuby Licence
+- 開発者:まつもとゆきひろ
+- ライセンス：Ruby Licence
 
-### Exerb                            #�J����ActiveScriptRuby(1.8.7-p330)�����ł��g�p
+### Exerb                            #開発はActiveScriptRuby(1.8.7-p330)同封版を使用
 - http://exerb.osdn.jp/man/README.ja.html
-- �J����:�����E��
-- ���C�Z���X�FLGPL
+- 開発者:加藤勇也
+- ライセンス：LGPL
 
-### gem                              #�J����ActiveScriptRuby(1.8.7-p330)�����ł��g�p
+### gem                              #開発はActiveScriptRuby(1.8.7-p330)同封版を使用
 - https://rubygems.org/
-- ���C�Z���X�FRuby Licence
+- ライセンス：Ruby Licence
 
-### VisualuRuby                      #�J����ActiveScriptRuby(1.8.7-p330)�����ł��g�p ��swin.so������
+### VisualuRuby                      #開発はActiveScriptRuby(1.8.7-p330)同封版を使用 ※swin.soを改造
 - http://www.osk.3web.ne.jp/~nyasu/software/vrproject.html
-- �J����:�ɂႷ
-- ���C�Z���X�FRuby Licence
+- 開発者:にゃす
+- ライセンス：Ruby Licence
 
 ### json-1.4.6-x86-mswin32
 - https://rubygems.org/gems/json/versions/1.4.6
 - https://rubygems.org/gems/json/versions/1.4.6-x86-mswin32
-- �J����:Florian Frank
-- ���C�Z���X�FRuby Licence
+- 開発者:Florian Frank
+- ライセンス：Ruby Licence
 
 ### DLL
 
-#### libiconv 1.11  (iconv.dll)       #Exerb��movement_script_change.exe�ɓ���
+#### libiconv 1.11  (iconv.dll)       #Exerbでmovement_script_change.exeに内包
 - https://www.gnu.org/software/libiconv/
 - Copyright (C) 1998, 2019 Free Software Foundation, Inc.
-- ���C�Z���X�FLGPL
+- ライセンス：LGPL
