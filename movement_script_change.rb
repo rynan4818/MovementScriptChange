@@ -63,11 +63,60 @@ class FormMain                                                      ##__BY_FDVR
       messageBox("Select MovementScript and ChangeScript files!","Script file error!",48)
       return
     end
-    if (@radioBtnFormatCameraPlus.checked?)
-      
+    camera_plus = true
+    unless (@radioBtnFormatCameraPlus.checked?)
+      camera_plus = false
     end
+    movement_change(@editMovementScript.text, @editChangeScript.text, camera_plus)
   end
   
+  def movement_change(movement_file, change_file, camera_plus = true)
+    movement_data = JSON.parse(File.read(movement_file))
+    change_data = JSON.parse(File.read(change_file))
+    movements = movement_data['Movements']
+    unless movements
+      messageBox("No 'Movements' entry in the MovementScript file!","MovementScript file error!",48)
+      return
+    end
+    time = 0.0
+    movements.each do |movement|
+      start_time = time
+      time += movement['Duration'].to_f
+      time += movement['Delay'].to_f
+      change_data.each do |change|
+        change_time = change['time']
+        if change_time.kind_of?(String)
+          change_time.split(',').each do |a|
+            if a =~ /(0-9\.)-(0-9\.)/
+              start_change = $1.to_f
+              end_change = $2.to_f
+              if start_change <= time && end_change >= start_time
+                movement.merge!(change['json'])
+              end
+            else
+              if start_time <= a.to_f && time >= a.to_f
+                movement.merge!(change['json'])
+              end
+            end
+          end
+        else
+          if start_time <= change_time.to_f && time >= change_time.to_f
+            movement.merge!(change['json'])
+          end
+        end
+      end
+    end
+    fn = SWin::CommonDialog::saveFilename(self, @movement_ext_list, 0x1004, 'Save MovementScript file', '*.json')
+    return unless fn
+    if File.exist?(fn)
+      return unless messageBox("Do you want to overwrite?","Overwrite confirmation",0x0004) == 6
+    end
+    File.open(fn, 'w') do |file|
+      JSON.pretty_generate(movement_data).each do |line|
+        file.puts line
+      end
+    end
+  end
 end                                                                 ##__BY_FDVR
 
 VRLocalScreen.start FormMain
