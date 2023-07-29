@@ -1,5 +1,127 @@
 # MovementScriptChange
 
+こんなChangeScript JSONファイルを作ります。
+
+```json
+[
+  {
+    "time": 5,       //時間が5秒に該当するMovementを変更
+    "json": {        //変更・追加する内容
+      "StartPos": {  //変更する場合は、中身(StartPosならx,y,z,FOV)は全て記載してください。xだけ記載すると他のy,z,FOVは削除されます
+          "x": 10,
+          "y": 1.75,
+          "z": -2,
+          "FOV": 90
+      }
+    }
+  },
+  {
+    "time": "10.5,20.9",  //時間は,で複数記載可能です
+    "json": {
+      "StartPos": {
+          "x": 20,
+          "y": 1.75,
+          "z": -2,
+          "FOV": 90
+      }
+    }
+  },
+  {
+    "time": "30.5-40.8",  //時間は-で範囲して可能です。左の場合は 30.5秒～40.8秒の範囲を全部変更
+    "json": {
+      "StartPos": {
+          "x": 30,
+          "y": 1.75,
+          "z": -2,
+          "FOV": 90
+      }
+    }
+  },
+  {
+    "time": "50.5-60.8,70.5-80.8",  //,と-を組み合わせ可能です
+    "json": {
+      "StartPos": {
+          "x": 40,
+          "y": 1.75,
+          "z": -2,
+          "FOV": 90
+      }
+    }
+  },
+  {
+    "time": 35,  //ChangeScriptは上から順番に処理をするため、上の30.5-40.8秒で変更した内容に対して、35秒だけこの内容に更に上書きします
+    "json": {
+      "StartPos": {
+          "x": 50,
+          "y": 1.75,
+          "z": -2,
+          "FOV": 50
+      }
+    }
+  },
+  {
+    "time": 100,
+    "json": {
+      "CameraEffect":{
+          "enableDoF": false,
+          "dofAutoDistance": false,
+          "StartDoF": {
+                 "dofFocusDistance": 1.0,
+                 "dofFocusRange": 1.0,
+                 "dofBlurRadius": 5.0
+           },
+          "EndDoF": {
+                 "dofFocusDistance": 1.0,
+                 "dofFocusRange": 1.0,
+                 "dofBlurRadius": 5.0
+           },
+           "wipeType": "Circle",
+           "StartWipe": {
+                 "wipeProgress": 0.0,
+                 "wipeCircleCenter": {
+                      "x": 0.0,
+                      "y": 0.0
+                 }
+           },
+           "EndWipe": {
+                 "wipeProgress": 0.0,
+                 "wipeCircleCenter": {
+                      "x": 0.0,
+                      "y": 0.0
+                 }
+           },
+           "enableOutlineEffect": false,
+           "StartOutlineEffect": {
+                 "outlineEffectOnly": 0.0,
+                 "outlineColor":{
+                      "r": 0.0,
+                      "g": 0.0,
+                      "b": 0.0
+                  },
+                 "outlineBackgroundColor":{
+                      "r": 0.0,
+                      "g": 0.0,
+                      "b": 0.0
+                  }
+           },
+           "EndOutlineEffect": {
+                 "outlineEffectOnly": 0.0,
+                 "outlineColor":{
+                      "r": 0.0,
+                      "g": 0.0,
+                      "b": 0.0
+                  },
+                 "outlineBackgroundColor":{
+                      "r": 0.0,
+                      "g": 0.0,
+                      "b": 0.0
+                  }
+           }
+      }
+    }
+  }
+]
+```
 
 
 # ライセンスと著作権について
