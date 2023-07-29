@@ -1,0 +1,124 @@
+[
+  {
+    "time": 10,
+    "json": {
+      "CameraEffect":{
+          "enableDoF": false,
+          "dofAutoDistance": false,
+          "StartDoF": {
+                 "dofFocusDistance": 1.0,
+                 "dofFocusRange": 1.0,
+                 "dofBlurRadius": 5.0
+           },
+          "EndDoF": {
+                 "dofFocusDistance": 1.0,
+                 "dofFocusRange": 1.0,
+                 "dofBlurRadius": 5.0
+           },
+           "wipeType": "Circle",
+           "StartWipe": {
+                 "wipeProgress": 0.0,
+                 "wipeCircleCenter": {
+                      "x": 0.0,
+                      "y": 0.0
+                 }
+           },
+           "EndWipe": {
+                 "wipeProgress": 0.0,
+                 "wipeCircleCenter": {
+                      "x": 0.0,
+                      "y": 0.0
+                 }
+           },
+           "enableOutlineEffect": false,
+           "StartOutlineEffect": {
+                 "outlineEffectOnly": 0.0,
+                 "outlineColor":{
+                      "r": 0.0,
+                      "g": 0.0,
+                      "b": 0.0
+                  },
+                 "outlineBackgroundColor":{
+                      "r": 0.0,
+                      "g": 0.0,
+                      "b": 0.0
+                  }
+           },
+           "EndOutlineEffect": {
+                 "outlineEffectOnly": 0.0,
+                 "outlineColor":{
+                      "r": 0.0,
+                      "g": 0.0,
+                      "b": 0.0
+                  },
+                 "outlineBackgroundColor":{
+                      "r": 0.0,
+                      "g": 0.0,
+                      "b": 0.0
+                  }
+           }
+      }
+    }
+  },
+  {
+    "time": 100,
+    "json": {
+      "CameraEffect":{
+          "enableDoF": false,
+          "dofAutoDistance": false,
+          "StartDoF": {
+                 "dofFocusDistance": 1.0,
+                 "dofFocusRange": 1.0,
+                 "dofBlurRadius": 5.0
+           },
+          "EndDoF": {
+                 "dofFocusDistance": 1.0,
+                 "dofFocusRange": 1.0,
+                 "dofBlurRadius": 5.0
+           },
+           "wipeType": "Circle",
+           "StartWipe": {
+                 "wipeProgress": 0.0,
+                 "wipeCircleCenter": {
+                      "x": 0.0,
+                      "y": 0.0
+                 }
+           },
+           "EndWipe": {
+                 "wipeProgress": 0.0,
+                 "wipeCircleCenter": {
+                      "x": 0.0,
+                      "y": 0.0
+                 }
+           },
+           "enableOutlineEffect": false,
+           "StartOutlineEffect": {
+                 "outlineEffectOnly": 0.0,
+                 "outlineColor":{
+                      "r": 0.0,
+                      "g": 0.0,
+                      "b": 0.0
+                  },
+                 "outlineBackgroundColor":{
+                      "r": 0.0,
+                      "g": 0.0,
+                      "b": 0.0
+                  }
+           },
+           "EndOutlineEffect": {
+                 "outlineEffectOnly": 0.0,
+                 "outlineColor":{
+                      "r": 0.0,
+                      "g": 0.0,
+                      "b": 0.0
+                  },
+                 "outlineBackgroundColor":{
+                      "r": 0.0,
+                      "g": 0.0,
+                      "b": 0.0
+                  }
+           }
+      }
+    }
+  }
+]
