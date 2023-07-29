@@ -1,6 +1,17 @@
 # MovementScriptChange
+[CameraPlus](https://github.com/Snow1226/CameraPlus)の[MovementScript](https://github.com/Snow1226/CameraPlus/wiki/MovementScript)(カメラスクリプト)の指定した時間のJSONを書き換えるツールです。
 
 ![image](https://github.com/rynan4818/MovementScriptChange/assets/14249877/ef7ea5f3-dbaf-455f-b538-e8124152ed31)
+
+```
+[{
+  "time":5,
+  "json":  {
+  "CameraEffect":{～}
+  }
+}]
+```
+ってJSONを読み込んで、5秒に当たる部分の`Movements`に`CameraEffect`を追加(変更)するツールです。
 
 # インストール方法
 1. [Releases](https://github.com/rynan4818/MovementScriptChange/releases)から`MovementScriptChange.zip`をダウンロードして、適当なフォルダを作成して解凍します。
