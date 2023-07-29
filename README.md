@@ -162,7 +162,7 @@ MovementScriptChange のソースコード及び各種ドキュメントにつ�
 
 各ツールの入手先、開発者・製作者（敬称略）、ライセンスは以下の通りです。
 
-movement_script_change.exe に内包している具体的なライブラリファイルの詳細は [Exerbレシピファイル](source/core_cui.exy) を参照して下さい。
+movement_script_change.exe に内包している具体的なライブラリファイルの詳細は [Exerbレシピファイル](source/core_gui.exy) を参照して下さい。
 
 ## Ruby本体入手先
 - ActiveScriptRuby(1.8.7-p330)
