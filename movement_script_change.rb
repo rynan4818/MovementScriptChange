@@ -87,7 +87,7 @@ class FormMain                                                      ##__BY_FDVR
         change_time = change['time']
         if change_time.kind_of?(String)
           change_time.split(',').each do |a|
-            if a =~ /(0-9\.)-(0-9\.)/
+            if a =~ /([0-9\. ]+)-([0-9\. ]+)/
               start_change = $1.to_f
               end_change = $2.to_f
               if start_change <= time && end_change >= start_time
