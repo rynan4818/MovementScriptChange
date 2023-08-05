@@ -94,7 +94,7 @@
   },
   {
     "time": "0-10",
-    "lerps": [  // -を使った範囲指定時に、該当範囲のMovementの最初と最後の間で値を直線補完します
+    "lerps": [  // -を使った範囲指定時に、該当範囲のMovementの最初と最後の間で値を線形補間します
       {
         "start": ["StartPos"],  // Start値に使用するキー
         "end": ["EndPos"]  //End値に使用するキー
@@ -105,7 +105,7 @@
           "FOV": 60  // この場合0秒のStartPosのFOVが60となり
       },
       "EndPos": {
-          "FOV": 100  // 10秒に該当するMovementのEndPosのFOVが100になるように間のMovementで直線補完されます
+          "FOV": 100  // 10秒に該当するMovementのEndPosのFOVが100になるように間のMovementで線形補間されます
       }
     }
   },
@@ -171,7 +171,7 @@
     }
   },
   {
-    "time": "5-15",  // 5～15秒の範囲でCameraEffectの値を直線補完する例
+    "time": "5-15",  // 5～15秒の範囲でCameraEffectの値を線形補間する例
     "lerps": [
       {
         "start": ["CameraEffect", "StartDoF"],  // 該当のキーの階層までキーを配列で並べます
@@ -188,31 +188,31 @@
     ],    
     "json": {
       "CameraEffect":{
-          "enableDoF": false,
+          "enableDoF": true,
           "dofAutoDistance": false,
           "StartDoF": {
-                 "dofFocusDistance": 1.0,  // 5～15秒に該当するMovementでdofFocusDistanceを1～5で直線補完します
+                 "dofFocusDistance": 1.0,  // 5～15秒に該当するMovementでdofFocusDistanceを1～5で線形補間します
                  "dofFocusRange": 1.0,
                  "dofBlurRadius": 5.0
            },
           "EndDoF": {
                  "dofFocusDistance": 5.0,
                  "dofFocusRange": 5.0,
-                 "dofBlurRadius": 10.0
+                 "dofBlurRadius": 1.0
            },
            "wipeType": "Circle",
            "StartWipe": {
                  "wipeProgress": 0.0,
                  "wipeCircleCenter": {
-                      "x": 10.0,
-                      "y": 10.0
+                      "x": 0.0,
+                      "y": 0.0
                  }
            },
            "EndWipe": {
-                 "wipeProgress": 100.0,
+                 "wipeProgress": 1.0,
                  "wipeCircleCenter": {
-                      "x": 100.0,
-                      "y": 100.0
+                      "x": 0.5,
+                      "y": 0.5
                  }
            },
            "enableOutlineEffect": false,
@@ -230,7 +230,7 @@
                   }
            },
            "EndOutlineEffect": {
-                 "outlineEffectOnly": 10.0,
+                 "outlineEffectOnly": 0.5,
                  "outlineColor":{
                       "r": 10.0,
                       "g": 10.0,
