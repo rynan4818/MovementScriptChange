@@ -78,7 +78,7 @@
     ],    
     "json": {
       "CameraEffect":{
-          "enableDoF": false,
+          "enableDoF": true,
           "dofAutoDistance": false,
           "StartDoF": {
                  "dofFocusDistance": 1.0,
@@ -88,24 +88,24 @@
           "EndDoF": {
                  "dofFocusDistance": 5.0,
                  "dofFocusRange": 5.0,
-                 "dofBlurRadius": 10.0
+                 "dofBlurRadius": 1.0
            },
            "wipeType": "Circle",
            "StartWipe": {
                  "wipeProgress": 0.0,
                  "wipeCircleCenter": {
-                      "x": 10.0,
-                      "y": 10.0
+                      "x": 0.0,
+                      "y": 0.0
                  }
            },
            "EndWipe": {
-                 "wipeProgress": 100.0,
+                 "wipeProgress": 1.0,
                  "wipeCircleCenter": {
-                      "x": 100.0,
-                      "y": 100.0
+                      "x": 0.5,
+                      "y": 0.5
                  }
            },
-           "enableOutlineEffect": false,
+           "enableOutlineEffect": true,
            "StartOutlineEffect": {
                  "outlineEffectOnly": 0.0,
                  "outlineColor":{
@@ -120,7 +120,7 @@
                   }
            },
            "EndOutlineEffect": {
-                 "outlineEffectOnly": 10.0,
+                 "outlineEffectOnly": 0.5,
                  "outlineColor":{
                       "r": 10.0,
                       "g": 10.0,
@@ -131,6 +131,26 @@
                       "g": 20.0,
                       "b": 20.0
                   }
+           }
+      }
+    }
+  },
+  {
+    "time": "34.681-38.597",
+    "lerps": [
+      {
+        "start": ["CameraEffect", "StartWipe"],
+        "end": ["CameraEffect", "EndWipe"]
+      }
+    ],    
+    "json": {
+      "CameraEffect":{
+           "wipeType": "Left to Right",
+           "StartWipe": {
+                 "wipeProgress": 0.0
+           },
+           "EndWipe": {
+                 "wipeProgress": 1.0
            }
       }
     }
