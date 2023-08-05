@@ -38,7 +38,7 @@ SETTING_FILE = EXE_DIR + "setting.json"
 def time_format(time)
   sec = time % 60
   min = (time / 60).to_i
-  return "%d:%.3f" % [min, sec]
+  return "%d:%#06.3f" % [min, sec]
 end
 
 def chile_merge(self_data, other_data)
