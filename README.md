@@ -54,7 +54,7 @@
     "time": "30.5-40.8",  //時間は-で範囲指定可能です。左の場合は 30.5秒～40.8秒の範囲を全部変更
     "json": {
       "StartPos": {
-          "z": "-2",
+          "z": "-2",  //数値の項目で文字列にすると演算が可能です。左の場合 z値-2 になります。※元の値+文字列でevalしています。使用可能文字→ +-/*%=:?<>().|^&0～9
           "FOV": 90
       }
     }
@@ -71,6 +71,17 @@
     }
   },
   {
+    "time": "0-",  //-の後ろが無しの場合は最後までです
+    "json": {
+      "StartPos": {
+          "z": "-0.1"  // 全てのMovementのStartPosのz値を-0.1します
+      },
+      "EndPos": {
+          "z": "-0.1"  // 全てのMovementのEndPosのz値を-0.1します
+      }
+    }
+  },
+  {
     "time": 35,  //ChangeScriptは上から順番に処理をするため、上の30.5-40.8秒で変更した内容に対して、35秒だけこの内容に更に上書きします
     "json": {
       "StartPos": {
@@ -78,6 +89,23 @@
           "y": 1.75,
           "z": -2,
           "FOV": 50
+      }
+    }
+  },
+  {
+    "time": "0-10",
+    "lerps": [  // -を使った範囲指定時に、該当範囲のMovementの最初と最後の間で値を直線補完します
+      {
+        "start": ["StartPos"],  // Start値に使用するキー
+        "end": ["EndPos"]  //End値に使用するキー
+      }
+    ],
+    "json": {
+      "StartPos": {
+          "FOV": 60  // この場合0秒のStartPosのFOVが60となり
+      },
+      "EndPos": {
+          "FOV": 100  // 10秒に該当するMovementのEndPosのFOVが100になるように間のMovementで直線補完されます
       }
     }
   },
@@ -137,6 +165,81 @@
                       "r": 0.0,
                       "g": 0.0,
                       "b": 0.0
+                  }
+           }
+      }
+    }
+  },
+  {
+    "time": "5-15",  // 5～15秒の範囲でCameraEffectの値を直線補完する例
+    "lerps": [
+      {
+        "start": ["CameraEffect", "StartDoF"],  // 該当のキーの階層までキーを配列で並べます
+        "end": ["CameraEffect", "EndDoF"]
+      },
+      {
+        "start": ["CameraEffect", "StartWipe"],
+        "end": ["CameraEffect", "EndWipe"]
+      },
+      {
+        "start": ["CameraEffect", "StartOutlineEffect"],
+        "end": ["CameraEffect", "EndOutlineEffect"]
+      }
+    ],    
+    "json": {
+      "CameraEffect":{
+          "enableDoF": false,
+          "dofAutoDistance": false,
+          "StartDoF": {
+                 "dofFocusDistance": 1.0,  // 5～15秒に該当するMovementでdofFocusDistanceを1～5で直線補完します
+                 "dofFocusRange": 1.0,
+                 "dofBlurRadius": 5.0
+           },
+          "EndDoF": {
+                 "dofFocusDistance": 5.0,
+                 "dofFocusRange": 5.0,
+                 "dofBlurRadius": 10.0
+           },
+           "wipeType": "Circle",
+           "StartWipe": {
+                 "wipeProgress": 0.0,
+                 "wipeCircleCenter": {
+                      "x": 10.0,
+                      "y": 10.0
+                 }
+           },
+           "EndWipe": {
+                 "wipeProgress": 100.0,
+                 "wipeCircleCenter": {
+                      "x": 100.0,
+                      "y": 100.0
+                 }
+           },
+           "enableOutlineEffect": false,
+           "StartOutlineEffect": {
+                 "outlineEffectOnly": 0.0,
+                 "outlineColor":{
+                      "r": 0.0,
+                      "g": 0.0,
+                      "b": 0.0
+                  },
+                 "outlineBackgroundColor":{
+                      "r": 0.0,
+                      "g": 0.0,
+                      "b": 0.0
+                  }
+           },
+           "EndOutlineEffect": {
+                 "outlineEffectOnly": 10.0,
+                 "outlineColor":{
+                      "r": 10.0,
+                      "g": 10.0,
+                      "b": 10.0
+                  },
+                 "outlineBackgroundColor":{
+                      "r": 20.0,
+                      "g": 20.0,
+                      "b": 20.0
                   }
            }
       }
