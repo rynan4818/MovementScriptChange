@@ -244,6 +244,26 @@
            }
       }
     }
+  },
+  {
+    "time": "34.681-38.597",  // 実際の使い方はこんな感じになると思います
+    "lerps": [
+      {
+        "start": ["CameraEffect", "StartWipe"],
+        "end": ["CameraEffect", "EndWipe"]
+      }
+    ],    
+    "json": {
+      "CameraEffect":{
+           "wipeType": "Left to Right",
+           "StartWipe": {
+                 "wipeProgress": 0.0
+           },
+           "EndWipe": {
+                 "wipeProgress": 1.0
+           }
+      }
+    }
   }
 ]
 ```
