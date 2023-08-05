@@ -22,18 +22,20 @@
 1. `movement_script_change.exe`を実行すると上の画像のツールが立ち上がります。
 2. `Movement Script`には[CameraPlus](https://github.com/Snow1226/CameraPlus)の[MovementScript](https://github.com/Snow1226/CameraPlus/wiki/MovementScript)のJSONファイルを選択します。
 3. `Change Script`には、下記を参考にして作ったJSONファイルを選択します。
-4. `Change!`を押すと変換後の保存JSONファイル画面が表示されるので、指定して保存します。
+4. `Save Script`には、変更後のMovement ScriptのJSONファイルを指定します。
+5. `Change!`を押すと変換後の保存JSONファイル画面が表示されるので、指定して保存します。
+
+# その他
+- `SaveSetting`を押すと現在のScriptのパスと設定が保存され、次回起動時に自動で読み込まれます。
+- `Add time to SaveScript`をチェックすると、Save ScriptのMovementsに`time`キーを追加して、そのMovementの曲時間を追加します。(例:"time": "0:00.000 - 0:02.293")
 
 ```json
 [
   {
     "time": 5,       //時間が5秒に該当するMovementを変更
     "json": {        //変更・追加する内容
-      "StartPos": {  //変更する場合は、中身(StartPosならx,y,z,FOV)は全て記載してください。xだけ記載すると他のy,z,FOVは削除されます
-          "x": 10,
-          "y": 1.75,
-          "z": -2,
-          "FOV": 90
+      "StartPos": {  //一部のみ変更する場合は、変更したキーだけ指定します。
+          "FOV": 90  //この場合はFOVのみ90に変更します。
       }
     }
   },
@@ -52,9 +54,7 @@
     "time": "30.5-40.8",  //時間は-で範囲指定可能です。左の場合は 30.5秒～40.8秒の範囲を全部変更
     "json": {
       "StartPos": {
-          "x": 30,
-          "y": 1.75,
-          "z": -2,
+          "z": "-2",
           "FOV": 90
       }
     }
