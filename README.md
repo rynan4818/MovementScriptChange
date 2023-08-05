@@ -3,7 +3,7 @@
 
 主に[Script Mapper](https://github.com/hibit-at/Scriptmapper)で生成したスクリプトに`CameraEffect`を後から追加したい場合などに、直接スクリプトを修正するのではなく本ツールを使って、修正内容を別ファイルに分離することを目的に作っています。
 
-![image](https://github.com/rynan4818/MovementScriptChange/assets/14249877/ef7ea5f3-dbaf-455f-b538-e8124152ed31)
+![image](https://github.com/rynan4818/MovementScriptChange/assets/14249877/8dfda43f-7280-429f-9725-fa06170a1879)
 
 ```
 [{
