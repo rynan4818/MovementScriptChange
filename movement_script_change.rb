@@ -70,6 +70,16 @@ class FormMain                                                      ##__BY_FDVR
     movement_change(@editMovementScript.text, @editChangeScript.text, camera_plus)
   end
   
+  def chile_merge(self_data, other_data)
+    if self_data.kind_of?(Hash) && other_data.kind_of?(Hash)
+      return self_data.merge(other_data) {|key, self_val, other_val| chile_merge(self_val, other_val)}
+    elsif self_data.kind_of?(Numeric) && other_data.kind_of?(String)
+      eval "return #{self_data.to_f}#{other_data}"
+    else
+      return other_data
+    end
+  end
+  
   def movement_change(movement_file, change_file, camera_plus = true)
     movement_data = JSON.parse(File.read(movement_file))
     change_data = JSON.parse(File.read(change_file))
@@ -91,17 +101,17 @@ class FormMain                                                      ##__BY_FDVR
               start_change = $1.to_f
               end_change = $2.to_f
               if start_change <= time && end_change >= start_time
-                movement.merge!(change['json'])
+                movement.merge!(change['json']) {|key, self_val, other_val| chile_merge(self_val, other_val)}
               end
             else
               if start_time <= a.to_f && time >= a.to_f
-                movement.merge!(change['json'])
+                movement.merge!(change['json']) {|key, self_val, other_val| chile_merge(self_val, other_val)}
               end
             end
           end
         else
           if start_time <= change_time.to_f && time >= change_time.to_f
-            movement.merge!(change['json'])
+            movement.merge!(change['json']) {|key, self_val, other_val| chile_merge(self_val, other_val)}
           end
         end
       end
