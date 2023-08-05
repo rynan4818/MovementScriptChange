@@ -33,6 +33,14 @@ require 'json'
 require 'vr/vruby'
 require '_frm_movement_script_change'
 
+SETTING_FILE = EXE_DIR + "setting.json"
+
+def time_format(time)
+  sec = time % 60
+  min = (time / 60).to_i
+  return "%d:%.3f" % [min, sec]
+end
+
 def chile_merge(self_data, other_data)
   if self_data.kind_of?(Hash) && other_data.kind_of?(Hash)
     return self_data.merge(other_data) {|key, self_val, other_val| chile_merge(self_val, other_val)}
@@ -126,7 +134,8 @@ def start_end_cnv(change, time_div, start_change, end_change, mov_start_time, mo
   end
 end
 
-def movement_cnv(movements, change_data)
+def movement_cnv(movements, change_data, time_add)
+  result_mes = "*** Change List ***\r\n"
   time = 0.0
   time_div = []
   movements.each do |movement|
@@ -139,6 +148,10 @@ def movement_cnv(movements, change_data)
     start_time = time
     time += movement['Duration'].to_f
     time += movement['Delay'].to_f
+    if time_add
+      movement['time'] = "#{time_format(start_time)} - #{time_format(time)}"
+    end
+    change_flag = []
     change_data.each do |change|
       change_time = change['time']
       if change_time.kind_of?(String)
@@ -153,20 +166,28 @@ def movement_cnv(movements, change_data)
             end
             if start_change <= time && end_change >= start_time
               movement.merge!(start_end_cnv(change, time_div, start_change, end_change, start_time, time)) {|key, self_val, other_val| chile_merge(self_val, other_val)}
+              change_flag.push change_time
             end
           else
             if start_time <= a.to_f && time >= a.to_f
               movement.merge!(change['json']) {|key, self_val, other_val| chile_merge(self_val, other_val)}
+              change_flag.push change_time
             end
           end
         end
       else
         if start_time <= change_time.to_f && time >= change_time.to_f
           movement.merge!(change['json']) {|key, self_val, other_val| chile_merge(self_val, other_val)}
+          change_flag.push change_time
         end
       end
     end
+    unless change_flag == []
+      result_mes += "Movement : #{time_format(start_time)} - #{time_format(time)} -> Change time : #{change_flag.join(';')}\r\n"
+    end
   end
+  result_mes += "*** End Change ***"
+  return result_mes
 end
 
 class FormMain                                                      ##__BY_FDVR
@@ -175,20 +196,87 @@ class FormMain                                                      ##__BY_FDVR
     @movement_ext_list = [["MovementScript(*.json)","*.json"],["all file (*.*)","*.*"]]
     @change_ext_list = [["ChangeScript(*.json)","*.json"],["all file (*.*)","*.*"]]
     @radioBtnFormatCameraPlus.check(true)
+    if File.exist?(SETTING_FILE)
+      setting = JSON.parse(File.read(SETTING_FILE))
+      if a = setting['MovementScript']
+        @editMovementScript.text = a
+        @editMovementScript.setCaret(a.size - 1)
+      end
+      if a = setting['ChangeScript']
+        @editChangeScript.text = a
+        @editChangeScript.setCaret(a.size - 1)
+      end
+      if a = setting['SaveScript']
+        @editSaveScript.text = a
+        @editSaveScript.setCaret(a.size - 1)
+      end
+      @checkBoxAddTime.check(setting['AddTime']) if setting['AddTime']
+      @radioBtnFormatCameraPlus.check(setting['CameraPlus']) if setting['CameraPlus']
+    end
   end
   
+  def select_file(edit, ext_list, text, open = true)
+    file_path = edit.text
+    folder = nil
+    file = nil
+    if file_path
+      if File.exist? file_path
+        folder = File.dirname(file_path)
+        file   = File.basename(file_path)
+      else
+        folder = File.dirname(file_path)
+        folder = nil unless File.directory? folder
+        file   = File.basename(file_path) unless open
+      end
+    end
+    if open
+      file = SWin::CommonDialog::openFilename(self, ext_list, 0x1004, "#{text} file select", '*.json', folder, file)
+    else
+      file = SWin::CommonDialog::saveFilename(self, ext_list, 0x1004, "Save #{text} file", '*.json', folder, file)
+    end
+    return unless file
+    return if open && !File.exist?(file)
+    edit.text = file
+    edit.setCaret(file.size - 1)
+  end
+  
+  def buttonClear_clicked
+    @editMovementScript.text = ""
+    @editChangeScript.text = ""
+    @editSaveScript.text = ""
+    @textLog.text = ""
+    @checkBoxAddTime.check(false)
+    @radioBtnFormatCameraPlus.check(true)
+  end
+
+  def buttonSave_clicked
+    setting = {}
+    setting['MovementScript'] = @editMovementScript.text.strip
+    setting['ChangeScript'] = @editChangeScript.text.strip
+    setting['SaveScript'] = @editSaveScript.text.strip
+    setting['AddTime'] = @checkBoxAddTime.checked?
+    setting['CameraPlus'] = @radioBtnFormatCameraPlus.checked?
+    File.open(SETTING_FILE, 'w') do |file|
+      JSON.pretty_generate(setting).each do |line|
+        file.puts line
+      end
+    end
+  end
+
   def buttonMovementScript_clicked
-    movement_file = SWin::CommonDialog::openFilename(self, @movement_ext_list, 0x1004, 'MovementScript file select', '*.json')
-    return unless movement_file
-    return unless File.exist?(movement_file)
-    @editMovementScript.text = movement_file
+    select_file(@editMovementScript, @movement_ext_list, 'MovementScript')
   end
 
   def buttonChangeScript_clicked
-    change_file = SWin::CommonDialog::openFilename(self, @change_ext_list, 0x1004, 'ChangeScript file select', '*.json')
-    return unless change_file
-    return unless File.exist?(change_file)
-    @editChangeScript.text = change_file
+    select_file(@editChangeScript, @change_ext_list, 'ChangeScript')
+  end
+
+  def buttonSaveScript_clicked
+    select_file(@editSaveScript, @movement_ext_list, 'MovementScript', false)
+  end
+
+  def buttonLogClear_clicked
+    @textLog.text = ""
   end
 
   def buttonClose_clicked
@@ -196,7 +284,10 @@ class FormMain                                                      ##__BY_FDVR
   end
 
   def buttonChange_clicked
-    unless File.exist?(@editMovementScript.text) && File.exist?(@editChangeScript.text)
+    movement_file = @editMovementScript.text.strip
+    change_file   = @editChangeScript.text.strip
+    save_file     = @editSaveScript.text.strip
+    unless File.exist?(movement_file) && File.exist?(change_file)
       messageBox("Select MovementScript and ChangeScript files!","Script file error!",48)
       return
     end
@@ -204,24 +295,28 @@ class FormMain                                                      ##__BY_FDVR
     unless (@radioBtnFormatCameraPlus.checked?)
       camera_plus = false
     end
-    movement_change(@editMovementScript.text, @editChangeScript.text, camera_plus)
-  end
-  
-  def movement_change(movement_file, change_file, camera_plus = true)
-    movement_data = JSON.parse(File.read(movement_file))
-    change_data = JSON.parse(File.read(change_file))
+    begin
+      movement_data = JSON.parse(File.read(movement_file))
+    rescue Exception => e
+      messageBox("MovementScript JSON formatting error!\r\n\r\n#{e.inspect}","MovementScript JSON error!",48)
+      return
+    end
+    begin
+      change_data = JSON.parse(File.read(change_file))
+    rescue Exception => e
+      messageBox("ChangeScript JSON formatting error!\r\n\r\n#{e.inspect}","ChangeScript JSON error!",48)
+      return
+    end
     movements = movement_data['Movements']
     unless movements
       messageBox("No 'Movements' entry in the MovementScript file!","MovementScript file error!",48)
       return
     end
-    movement_cnv(movements, change_data)
-    fn = SWin::CommonDialog::saveFilename(self, @movement_ext_list, 0x1004, 'Save MovementScript file', '*.json')
-    return unless fn
-    if File.exist?(fn)
+    if File.exist?(save_file)
       return unless messageBox("Do you want to overwrite?","Overwrite confirmation",0x0004) == 6
     end
-    File.open(fn, 'w') do |file|
+    @textLog.text = movement_cnv(movements, change_data, @checkBoxAddTime.checked?)
+    File.open(save_file, 'w') do |file|
       JSON.pretty_generate(movement_data).each do |line|
         file.puts line
       end
