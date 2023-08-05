@@ -61,7 +61,21 @@
     }
   },
   {
-    "time": 100,
+    "time": "5-15",
+    "lerps": [
+      {
+        "start": ["CameraEffect", "StartDoF"],
+        "end": ["CameraEffect", "EndDoF"]
+      },
+      {
+        "start": ["CameraEffect", "StartWipe"],
+        "end": ["CameraEffect", "EndWipe"]
+      },
+      {
+        "start": ["CameraEffect", "StartOutlineEffect"],
+        "end": ["CameraEffect", "EndOutlineEffect"]
+      }
+    ],    
     "json": {
       "CameraEffect":{
           "enableDoF": false,
@@ -72,23 +86,23 @@
                  "dofBlurRadius": 5.0
            },
           "EndDoF": {
-                 "dofFocusDistance": 1.0,
-                 "dofFocusRange": 1.0,
-                 "dofBlurRadius": 5.0
+                 "dofFocusDistance": 5.0,
+                 "dofFocusRange": 5.0,
+                 "dofBlurRadius": 10.0
            },
            "wipeType": "Circle",
            "StartWipe": {
                  "wipeProgress": 0.0,
                  "wipeCircleCenter": {
-                      "x": 0.0,
-                      "y": 0.0
+                      "x": 10.0,
+                      "y": 10.0
                  }
            },
            "EndWipe": {
-                 "wipeProgress": 0.0,
+                 "wipeProgress": 100.0,
                  "wipeCircleCenter": {
-                      "x": 0.0,
-                      "y": 0.0
+                      "x": 100.0,
+                      "y": 100.0
                  }
            },
            "enableOutlineEffect": false,
@@ -106,16 +120,16 @@
                   }
            },
            "EndOutlineEffect": {
-                 "outlineEffectOnly": 0.0,
+                 "outlineEffectOnly": 10.0,
                  "outlineColor":{
-                      "r": 0.0,
-                      "g": 0.0,
-                      "b": 0.0
+                      "r": 10.0,
+                      "g": 10.0,
+                      "b": 10.0
                   },
                  "outlineBackgroundColor":{
-                      "r": 0.0,
-                      "g": 0.0,
-                      "b": 0.0
+                      "r": 20.0,
+                      "g": 20.0,
+                      "b": 20.0
                   }
            }
       }
