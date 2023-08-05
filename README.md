@@ -23,7 +23,7 @@
 2. `Movement Script`には[CameraPlus](https://github.com/Snow1226/CameraPlus)の[MovementScript](https://github.com/Snow1226/CameraPlus/wiki/MovementScript)のJSONファイルを選択します。
 3. `Change Script`には、下記を参考にして作ったJSONファイルを選択します。
 4. `Save Script`には、変更後のMovement ScriptのJSONファイルを指定します。
-5. `Change!`を押すと変換後の保存JSONファイル画面が表示されるので、指定して保存します。
+5. `Change!`を押すと実行され、`Log`に変換結果が表示されます。
 
 # その他
 - `SaveSetting`を押すと現在のScriptのパスと設定が保存され、次回起動時に自動で読み込まれます。
