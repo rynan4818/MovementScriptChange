@@ -1,6 +1,8 @@
 # MovementScriptChange
 [CameraPlus](https://github.com/Snow1226/CameraPlus)の[MovementScript](https://github.com/Snow1226/CameraPlus/wiki/MovementScript)(カメラスクリプト)の指定した時間のJSONを書き換えるツールです。
 
+主に[Script Mapper](https://github.com/hibit-at/Scriptmapper)で生成したスクリプトに`CameraEffect`を後から追加したい場合などに、直接スクリプトを修正するのではなく本ツールを使って、修正内容を別ファイルに分離することを目的に作っています。
+
 ![image](https://github.com/rynan4818/MovementScriptChange/assets/14249877/ef7ea5f3-dbaf-455f-b538-e8124152ed31)
 
 ```
@@ -47,7 +49,7 @@
     }
   },
   {
-    "time": "30.5-40.8",  //時間は-で範囲して可能です。左の場合は 30.5秒～40.8秒の範囲を全部変更
+    "time": "30.5-40.8",  //時間は-で範囲指定可能です。左の場合は 30.5秒～40.8秒の範囲を全部変更
     "json": {
       "StartPos": {
           "x": 30,
@@ -142,7 +144,10 @@
   }
 ]
 ```
+# 補足事項
+Script Mapperで生成される`Duration`は自動処理による小数点の桁数が多いため、本ツールや[ChroMapper-CameraMovement](https://github.com/rynan4818/ChroMapper-CameraMovement)で扱う時間とミリ秒レベルで誤差があります。
 
+例えば曲時間の0:53.552 ～ 0:56.723のMovementが有った場合、境目付近(0:53.552や0:56.723)は前後のMovementとズレる可能性があります。この場合3秒ぐらいDurationがあるので54秒や55秒を指定してあげればズレることはなくなります。
 
 # ライセンスと著作権について
 
@@ -157,7 +162,7 @@ MovementScriptChange のソースコード及び各種ドキュメントにつ�
 
 各ツールの入手先、開発者・製作者（敬称略）、ライセンスは以下の通りです。
 
-movement_script_change.exe に内包している具体的なライブラリファイルの詳細は [Exerbレシピファイル](source/core_cui.exy) を参照して下さい。
+movement_script_change.exe に内包している具体的なライブラリファイルの詳細は [Exerbレシピファイル](source/core_gui.exy) を参照して下さい。
 
 ## Ruby本体入手先
 - ActiveScriptRuby(1.8.7-p330)
