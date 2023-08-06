@@ -23,7 +23,7 @@
 2. `Movement Script`には[CameraPlus](https://github.com/Snow1226/CameraPlus)の[MovementScript](https://github.com/Snow1226/CameraPlus/wiki/MovementScript)のJSONファイルを選択します。
 3. `Change Script`には、下記を参考にして作ったJSONファイルを選択します。
 4. `Save Script`には、変更後のMovement ScriptのJSONファイルを指定します。
-5. `Change!`を押すと変換後の保存JSONファイル画面が表示されるので、指定して保存します。
+5. `Change!`を押すと実行され、`Log`に変換結果が表示されます。
 
 # その他
 - `SaveSetting`を押すと現在のScriptのパスと設定が保存され、次回起動時に自動で読み込まれます。
@@ -54,8 +54,8 @@
     "time": "30.5-40.8",  //時間は-で範囲指定可能です。左の場合は 30.5秒～40.8秒の範囲を全部変更
     "json": {
       "StartPos": {
-          "z": "-2",  //数値の項目で文字列にすると演算が可能です。左の場合 z値-2 になります。※元の値+文字列でevalしています。使用可能文字→ +-/*%=:?<>().|^&0～9
-          "FOV": 90
+          "y": "+0.3",  //数値の項目で文字列にすると演算が可能です。左の場合 y値+0.3 になります。
+          "FOV": 90     //※元の値+文字列でevalしています。使用可能文字→ +-/*%=:?<>().|^&0～9
       }
     }
   },
@@ -74,10 +74,10 @@
     "time": "0-",  //-の後ろが無しの場合は最後までです
     "json": {
       "StartPos": {
-          "z": "-0.1"  // 全てのMovementのStartPosのz値を-0.1します
+          "y": "-0.1"  // 全てのMovementのStartPosのy値を-0.1します
       },
       "EndPos": {
-          "z": "-0.1"  // 全てのMovementのEndPosのz値を-0.1します
+          "y": "-0.1"  // 全てのMovementのEndPosのy値を-0.1します
       }
     }
   },
