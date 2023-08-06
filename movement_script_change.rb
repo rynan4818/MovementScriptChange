@@ -41,9 +41,9 @@ def time_format(time)
   return "%d:%#06.3f" % [min, sec]
 end
 
-def chile_merge(self_data, other_data)
+def child_merge(self_data, other_data)
   if self_data.kind_of?(Hash) && other_data.kind_of?(Hash)
-    return self_data.merge(other_data) {|key, self_val, other_val| chile_merge(self_val, other_val)}
+    return self_data.merge(other_data) {|key, self_val, other_val| child_merge(self_val, other_val)}
   elsif self_data.kind_of?(Numeric) && other_data.kind_of?(String) && other_data =~ /^[ \+\-\/\*%=:\?<>\(\)\d\.\|\^&v]*$/
     v = self_data.to_f
     eval "return #{self_data.to_f}#{other_data}"
@@ -126,8 +126,8 @@ def start_end_cnv(change, time_div, start_change, end_change, mov_start_time, mo
       end_data   = lerp_cnv(json_data, lerp, start_cng_time, end_cng_time, mov_end_time)
       start_json = key_guide_set(lerp["start"], start_data)
       end_json = key_guide_set(lerp["end"], end_data)
-      result_json = result_json.merge(start_json) {|key, self_val, other_val| chile_merge(self_val, other_val)}
-      result_json = result_json.merge(end_json) {|key, self_val, other_val| chile_merge(self_val, other_val)}
+      result_json = result_json.merge(start_json) {|key, self_val, other_val| child_merge(self_val, other_val)}
+      result_json = result_json.merge(end_json) {|key, self_val, other_val| child_merge(self_val, other_val)}
     end
     return result_json
   else
@@ -166,19 +166,19 @@ def movement_cnv(movements, change_data, time_add)
               end_change = $2.to_f
             end
             if start_change <= time && end_change >= start_time
-              movement.merge!(start_end_cnv(change, time_div, start_change, end_change, start_time, time)) {|key, self_val, other_val| chile_merge(self_val, other_val)}
+              movement.merge!(start_end_cnv(change, time_div, start_change, end_change, start_time, time)) {|key, self_val, other_val| child_merge(self_val, other_val)}
               change_flag.push change_time
             end
           else
             if start_time <= a.to_f && time >= a.to_f
-              movement.merge!(change['json']) {|key, self_val, other_val| chile_merge(self_val, other_val)}
+              movement.merge!(change['json']) {|key, self_val, other_val| child_merge(self_val, other_val)}
               change_flag.push change_time
             end
           end
         end
       else
         if start_time <= change_time.to_f && time >= change_time.to_f
-          movement.merge!(change['json']) {|key, self_val, other_val| chile_merge(self_val, other_val)}
+          movement.merge!(change['json']) {|key, self_val, other_val| child_merge(self_val, other_val)}
           change_flag.push change_time
         end
       end
