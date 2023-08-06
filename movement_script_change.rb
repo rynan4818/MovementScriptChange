@@ -44,7 +44,8 @@ end
 def chile_merge(self_data, other_data)
   if self_data.kind_of?(Hash) && other_data.kind_of?(Hash)
     return self_data.merge(other_data) {|key, self_val, other_val| chile_merge(self_val, other_val)}
-  elsif self_data.kind_of?(Numeric) && other_data.kind_of?(String) && other_data =~ /^[ \+\-\/\*%=:\?<>\(\)\d\.\|\^&]*$/
+  elsif self_data.kind_of?(Numeric) && other_data.kind_of?(String) && other_data =~ /^[ \+\-\/\*%=:\?<>\(\)\d\.\|\^&v]*$/
+    v = self_data.to_f
     eval "return #{self_data.to_f}#{other_data}"
   else
     return other_data

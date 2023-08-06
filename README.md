@@ -29,6 +29,7 @@
 - `SaveSetting`を押すと現在のScriptのパスと設定が保存され、次回起動時に自動で読み込まれます。
 - `Add time to SaveScript`をチェックすると、Save ScriptのMovementsに`time`キーを追加して、そのMovementの曲時間を追加します。(例:"time": "0:00.000 - 0:02.293")
 
+# Change Script説明
 ```json
 [
   {
@@ -54,8 +55,12 @@
     "time": "30.5-40.8",  //時間は-で範囲指定可能です。左の場合は 30.5秒～40.8秒の範囲を全部変更
     "json": {
       "StartPos": {
-          "y": "+0.3",  //数値の項目で文字列にすると演算が可能です。左の場合 y値+0.3 になります。
-          "FOV": 90     //※元の値+文字列でevalしています。使用可能文字→ +-/*%=:?<>().|^&0～9
+          "y": "+0.3",                 //数値の項目で文字列にすると演算が可能です。左の場合 y値+0.3 になります。
+          "FOV": "< 50 ? v + 10 : v"   //v には元の値が入っています。左は v < 50 ? v + 10 : v になります。
+      },                               //(意味:vが50未満の場合は、元の値に+10する。50以上は変更しない)
+      "EndPos": {                      //元の値+文字列でevalしています。使用可能文字→ +-/*%=:?<>().|^&0～9v
+          "y": "+0.3",                 //※悪用防止で使える文字に制限をかけています。
+          "FOV": "< 50 ? v + 10 : v"
       }
     }
   },
@@ -71,13 +76,15 @@
     }
   },
   {
-    "time": "0-",  //-の後ろが無しの場合は最後までです
+    "time": "0-",  //-の後ろが無しの場合は最後までです。左の場合は全てのMovementが対象になります。
     "json": {
       "StartPos": {
-          "y": "-0.1"  // 全てのMovementのStartPosのy値を-0.1します
+          "z": "< 0 ? v - 2 : v + 2",  //元の値がマイナスの場合は-2, 0以上の場合は+2します
+          "y": "-0.1"                  //StartPosのy値を-0.1します
       },
       "EndPos": {
-          "y": "-0.1"  // 全てのMovementのEndPosのy値を-0.1します
+          "z": "< 0 ? v - 2 : v + 2",
+          "y": "-0.1"
       }
     }
   },
@@ -96,8 +103,8 @@
     "time": "0-10",
     "lerps": [  // -を使った範囲指定時に、該当範囲のMovementの最初と最後の間で値を線形補間します
       {
-        "start": ["StartPos"],  // Start値に使用するキー
-        "end": ["EndPos"]  //End値に使用するキー
+        "start": ["StartPos"],  // Start値に使用するキー  //中間階層のキーを指定した場合は、それ以下のキーは全て対象になります。
+        "end": ["EndPos"]       // End値に使用するキー    //値の対象は数値のみです。それ以外の場合は補完されません。
       }
     ],
     "json": {
@@ -110,7 +117,7 @@
     }
   },
   {
-    "time": 100,
+    "time": 100,   //CameraEffectを固定で設定する場合 (下記はサンプルで全て記載していますが、実際は必要なエフェクトのみなると思います)
     "json": {
       "CameraEffect":{
           "enableDoF": false,
@@ -178,7 +185,7 @@
         "end": ["CameraEffect", "EndDoF"]
       },
       {
-        "start": ["CameraEffect", "StartWipe"],
+        "start": ["CameraEffect", "StartWipe"], //複数設定可能です
         "end": ["CameraEffect", "EndWipe"]
       },
       {
@@ -192,7 +199,7 @@
           "dofAutoDistance": false,
           "StartDoF": {
                  "dofFocusDistance": 1.0,  // 5～15秒に該当するMovementでdofFocusDistanceを1～5で線形補間します
-                 "dofFocusRange": 1.0,
+                 "dofFocusRange": 1.0,     // 以下おなじ
                  "dofBlurRadius": 5.0
            },
           "EndDoF": {
